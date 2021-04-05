@@ -14,9 +14,7 @@ const renderComponent = (item) => {
 function App() {
   return (
     <>
-    {[0, 1, 2, 3, 4, 5, 6].map(i=>{
-      return renderComponent(config[i])
-    })}
+    <ShowFrame>{renderComponent(config[0])}</ShowFrame>
     </> 
   )
 
