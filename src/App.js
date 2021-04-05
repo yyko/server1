@@ -1,23 +1,20 @@
-import logo from './logo.svg';
 import './App.css';
-import Greeting from './Greeting'
-import {Q1} from './Q1'
-import {Q2} from './Q2'
-import {Q3} from './Q3'
-import {Q4} from './Q4'
-import {Q5} from './Q5'
-import {Congratulations} from './Congratulations'
+import React, { Fragment } from "react";
+import { Renderer } from "./Renderer";
+import { config } from "./config";
 
+const renderComponent = (item) => {
+      const { Component, ...props } = item;
+      return (
+        <Fragment key={props.name}>
+          <Component {...props} />
+        </Fragment>
+      );
+  }
 function App() {
   return (
     <>
-    <Greeting/>
-    <Q1/>
-    <Q2/>
-    <Q3/>
-    <Q4/>
-    <Q5/>
-    <Congratulations/>
+      <Renderer config={config} />
     </>
   );
 
