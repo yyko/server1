@@ -1,7 +1,7 @@
 import './App.css';
 import React, { Fragment } from "react";
-import { Renderer } from "./Renderer";
 import { config } from "./config";
+import { ShowFrame } from "./ShowFrame";
 
 const renderComponent = (item) => {
       const { Component, ...props } = item;
@@ -14,9 +14,11 @@ const renderComponent = (item) => {
 function App() {
   return (
     <>
-      <Renderer config={config} />
-    </>
-  );
+    {[0, 1, 2, 3, 4, 5, 6].map(i=>{
+      return renderComponent(config[i])
+    })}
+    </> 
+  )
 
 }
 
