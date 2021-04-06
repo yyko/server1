@@ -2,6 +2,7 @@ import './App.css';
 import React, { Fragment } from "react";
 import { config } from "./config";
 import { ShowFrame } from "./ShowFrame";
+import { useStateValue } from './StateProvider'
 
 const renderComponent = (item) => {
       const { Component, ...props } = item;
@@ -12,9 +13,10 @@ const renderComponent = (item) => {
       );
   }
 function App() {
+  const [{frame}] = useStateValue();
   return (
     <>
-    <ShowFrame>{renderComponent(config[0])}</ShowFrame>
+    <ShowFrame>{renderComponent(config[frame])}</ShowFrame>
     </> 
   )
 
