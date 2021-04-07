@@ -1,10 +1,17 @@
 export const initialState = {
     frame: 0,
-    frames: []
+    frames: [],
+    framesSvg : {}
 }
 
 function reducer(state, action) {
+    let newState;
+    newState = Object.assign({}, state)
     switch (action.type) {
+        case 'LOAD_SVG':
+            newState['framesSvg'][state.frame] = action.payload
+            return newState
+            break;
         case 'SET_QUANTITY':
             return {
                 ...state,
