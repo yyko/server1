@@ -1,11 +1,20 @@
 const express = require('express');
 const fs = require('fs');
-const {directory_filenames} = require('./get.js')
+const {directory_filenames, full_filenames} = require('./get.js')
 const app = express();
 const port = 4000;
-const SOURCE_PATH = 'X:\\n\\images\\!svg\\screencasts\\screencast 2021-04-01.searchtides.link statuses.check';
+const SOURCE_PATH = 'X:\\n\\images\\!svg\\screencasts\\screencast.2021-04-01.searchtides.links.statuses.check';
 const  SVG_PATH= 'X:\\n\\images\\!svg'
-app.get('/', (request, response) => {
+const start = express.Router({mergeParams:true})
+
+
+app.get('/show/*', (request, response)=>{
+   let full_path = SVG_PATH + '\\' +  request.params[0];
+   let text = fs.readFileSync(full_path)
+   response.send(text)
+})
+
+app.get('/api', (request, response) => {
   const q = request.query;
   if (typeof q.id !== 'undefined') {
     let final_path = SOURCE_PATH + '\\' + q.id + '.svg';
@@ -13,9 +22,9 @@ app.get('/', (request, response) => {
     response.send('' + text);
   } else {
     let xs = directory_filenames(SOURCE_PATH)
-    let ys = xs.map(x=> fs.readFileSync(SOURCE_PATH + '\\' + x));
-    let text = ys.join("<br>")
-    response.send('' + text);
+    let ys = xs.map(x=>SOURCE_PATH + '\\' + x);
+    response.set('content-type', 'application/json');
+    response.json({frames:ys});
   }
 });
 
