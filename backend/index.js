@@ -9,7 +9,7 @@ const start = express.Router({mergeParams:true})
 
 
 app.get('/show/*', (request, response)=>{
-   let full_path = SVG_PATH + '\\' +  request.params[0];
+   let full_path = request.params[0];
    let text = fs.readFileSync(full_path)
    response.send(text)
 })
