@@ -28,12 +28,14 @@ function App() {
     return () => mounted = false;
   }, [])
 
+  const goNext = ()=>{
+      dispatch({type:'NEXT'})
+  }
   return (
     <>
-      Wellcome to the viewer of {frames.length}
-
       <SvgView />
-      <div>{frame}</div>
+      {frame} of {frames.length}
+      <div onClick={goNext} className="showframeNext">Next</div>
     </>
   )
 

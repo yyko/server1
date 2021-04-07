@@ -16,7 +16,7 @@ export function SvgView(props) {
 
         }
         return () => mounted = false;
-    }, [frames])
+    }, [frames, frame])
     if (framesSvg[frame]) {
         return (
             <>
