@@ -14,6 +14,8 @@ const renderComponent = (item) => {
   );
 }
 
+document.title = 'Slideshow';
+
 function App() {
   const [{ frame, frames }, dispatch] = useStateValue();
   useEffect(() => {
