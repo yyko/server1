@@ -1,3 +1,3 @@
 export function getList() {
-  return fetch('/api')
+  return fetch("/api");
 }

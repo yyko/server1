@@ -1,11 +1,5 @@
-import React from 'react'
+import React from "react";
 
 export function Q5(props) {
-    
-
-    return (
-        <div>
-            Question 5
-        </div>
-    )
+  return <div>Question 5</div>;
 }
