@@ -1,10 +1,8 @@
 import "./App.css";
-import * as fs from "fs";
 import React, { useEffect, Fragment } from "react";
-import { config } from "./config";
-import { ShowFrame } from "./ShowFrame";
 import { SvgView } from "./SvgView";
 import { useStateValue } from "./StateProvider";
+
 const renderComponent = (item) => {
   const { Component, ...props } = item;
   return (
