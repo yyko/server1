@@ -1,9 +1,7 @@
-const fs = require("fs");
-
-var directory_filenames, diary, get_bush_ffns;
+import fs from "fs";
 
 //::WindowPath->[File]
-get_bush_ffns = function (path) {
+export const get_bush_ffns = function (path) {
   //ffns = full filenames
   var flds, files;
   flds = folders(path);
@@ -20,12 +18,12 @@ get_bush_ffns = function (path) {
 };
 
 //::WindowPath->[Folder]
-folders = function (path) {
+export const folders = function (path) {
   return fs
     .readdirSync(path)
     .map((filename) => {
-      fullname = path + "\\" + filename;
-      stats = fs.statSync(fullname);
+      let fullname = path + "\\" + filename;
+      let stats = fs.statSync(fullname);
       return [fullname, stats.isDirectory()];
     })
     .filter((x) => x[1])
@@ -33,7 +31,7 @@ folders = function (path) {
 };
 
 //::WindowPath->[String]
-full_filenames = function (path) {
+export const full_filenames = function (path) {
   var all, res, pared, stats, fullname, timestamp;
   all = fs.readdirSync(path);
   res = all
@@ -47,46 +45,7 @@ full_filenames = function (path) {
   return res;
 };
 
-exports.diary = (x) => {
-  var sql, p, from, to;
-  sql =
-    "SELECT * FROM dairy_records \
-	INNER JOIN objects ON dairy_records.dairy_record_code=objects.object_code";
-  if (x.year !== undefined) {
-    if (x.month !== undefined) {
-      from = dnt.begining_of_month(x.year, x.month);
-      to = dnt.end_of_month(x.year, x.month);
-    } else {
-      from = dnt.begining_of_year(x.year);
-      to = dnt.end_of_year(x.year);
-    }
-    sql +=
-      " WHERE objects.creation_timestamp >=" +
-      from / 1000 +
-      " AND \
-		objects.creation_timestamp <=" +
-      to / 1000;
-  }
-
-  p = new Promise((resolve, reject) => {
-    x.con.query(sql, (err, rows) => {
-      if (err) {
-        reject(err);
-        return;
-      }
-      resolve({ rows: rows, con: x.con });
-    });
-  });
-  return p;
-};
-
-exports.records = (x) => {
-  var sql;
-  sql = "SELECT * FROM records";
-  x.con.query(sql, x.callback);
-};
-
-directory_filenames = function (path) {
+export const directory_filenames = function (path) {
   //::String->[String]
   var all, res, pared, stats, fullname, timestamp;
   all = fs.readdirSync(path);
@@ -104,21 +63,3 @@ directory_filenames = function (path) {
     });
   return res;
 };
-
-exports.last_edited = function (path) {
-  var filenames, vh;
-  filenames = directory_filenames(path);
-  vh = filenames.map((filename) => {
-    return [fs.statSync(path + "\\" + filename)["mtime"].getTime(), filename];
-  });
-  vh.sort((a, b) => {
-    return b[0] - a[0];
-  });
-  return vh[0][1];
-};
-
-exports.directory_filenames = directory_filenames;
-exports.files = directory_filenames;
-exports.folders = folders;
-exports.full_filenames = full_filenames;
-exports.get_bush_ffns = get_bush_ffns;
