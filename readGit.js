@@ -1,4 +1,4 @@
-import { readActivity } from "./utils.mjs";
+import { readActivity } from "./utils.js";
 import _ from "lodash";
 let p1 = "X:\\n\\projects\\active\\d3_viewer";
 
